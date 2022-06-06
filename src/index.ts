@@ -1,4 +1,5 @@
 import express, { Application, Request, Response } from 'express';
+import errorMiddleware from './middleware/error_middleware';
 
 const port = 3030;
 //server instance
@@ -19,6 +20,8 @@ app.use((_req: Request, res: Response) => {
       'route not found, please read the documentation for available routes'
     );
 });
+
+app.use(errorMiddleware);
 
 //express server start
 app.listen(port, () => {
