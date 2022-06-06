@@ -15,7 +15,7 @@ const errorMiddleware = (
 ) => {
   const errorStatus = error.status || 500;
   const errorMsg = error.message || 'something went wrong!';
-  res.status(errorStatus).send(`${errorStatus}, ${errorMsg}`);
+  res.status(errorStatus).send(`${errorStatus}: ${errorMsg}`);
   next();
 };
 
