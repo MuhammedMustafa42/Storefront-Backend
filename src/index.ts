@@ -1,7 +1,8 @@
 import express, { Application, Request, Response } from 'express';
 import errorMiddleware from './middleware/error_middleware';
+import config from './config';
 
-const port = 3030;
+const port = config.port || 3030;
 //server instance
 const app: Application = express();
 
