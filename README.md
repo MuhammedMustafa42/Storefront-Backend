@@ -1,3 +1,3 @@
 # Storefront-Backend
 
-Second Project
+Second Project for udacity
