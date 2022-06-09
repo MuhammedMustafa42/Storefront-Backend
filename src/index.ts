@@ -1,8 +1,12 @@
 import express, { Application, Request, Response } from 'express';
 import errorMiddleware from './middleware/error_middleware';
-import config from './config';
+import dotenv from 'dotenv';
 
-const port = config.port || 3030;
+dotenv.config();
+
+const { PORT } = process.env;
+
+const port = PORT || 3030;
 //server instance
 const app: Application = express();
 
