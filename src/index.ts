@@ -1,6 +1,8 @@
 import express, { Application, Request, Response } from 'express';
 import errorMiddleware from './middleware/error_middleware';
 import dotenv from 'dotenv';
+import cyberwares_routes from './handlers/cyberwares-store';
+import orders_routes from './handlers/orders';
 
 dotenv.config();
 
@@ -27,6 +29,9 @@ app.use((_req: Request, res: Response) => {
 });
 
 app.use(errorMiddleware);
+
+cyberwares_routes(app);
+orders_routes(app);
 
 //express server start
 app.listen(port, () => {

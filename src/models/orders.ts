@@ -79,4 +79,16 @@ export class Order {
       throw new Error(`Cannot place order ${error}`);
     }
   }
+
+  async delete(id: number): Promise<orderedProduct> {
+    try {
+      const connect = await client.connect();
+      const sql = 'DELETE FROM orders WHERE id = ($1)';
+      const result = await connect.query(sql, [id]);
+      connect.release();
+      return result.rows[0];
+    } catch (error) {
+      throw new Error(`Cannot delete order ${error}`);
+    }
+  }
 }
