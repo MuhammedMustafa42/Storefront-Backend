@@ -54,7 +54,7 @@ export class Order {
   async update(id: number, order: order): Promise<order> {
     try {
       const conn = await client.connect();
-      const sql = 'UPDATE order SET status = $1 WHERE id = $(2) RETURNING *';
+      const sql = 'UPDATE orders SET status = $1 WHERE id = $(2) RETURNING *';
       const result = await conn.query(sql, [order.status, id]);
       conn.release();
       return result.rows[0];

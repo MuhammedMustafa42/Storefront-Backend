@@ -51,7 +51,7 @@ export class Cyberware {
     try {
       const connect = await client.connect();
       const sql =
-        'UPDATE cyberware SET name = $1, price = $2 WHERE id = ($3) RETURNING *';
+        'UPDATE cyberwares SET name = $1, price = $2 WHERE id = ($3) RETURNING *';
       const result = await connect.query(sql, [
         cyberware.name,
         cyberware.price,

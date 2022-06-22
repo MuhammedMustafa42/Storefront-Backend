@@ -88,4 +88,16 @@ export class User {
       throw new Error(`Cannot delete user ${error}`);
     }
   }
+
+  async update(id: number, user: user): Promise<user> {
+    try {
+      const conn = await client.connect();
+      const sql = 'UPDATE users SET firstname = $1, lastname = $2, email = $3, password_digest = $4 WHERE id = $(5) RETURNING *';
+      const result = await conn.query(sql, [user.firstname, user.lastname, user.email, user.password_digest, id]);
+      conn.release();
+      return result.rows[0];
+    } catch (error) {
+      throw new Error(`Cannot edit user ${error}`);
+    }
+  }
 }
