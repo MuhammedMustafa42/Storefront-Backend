@@ -4,7 +4,16 @@ import jwt, { Secret } from 'jsonwebtoken';
 
 const customer = new User();
 
-const index = async (_req: Request, res: Response) => {
+const index = async (req: Request, res: Response) => {
+  try {
+    const headerAuth = req.headers.authorization;
+    const token = (headerAuth as string).split(' ')[1];
+    jwt.verify(token, process.env.TOKEN_SECRET as string);
+  } catch (error) {
+    res.status(401);
+    res.json(`Access denied, invalid token ${error}`);
+    return;
+  }
   try {
     const users = await customer.index();
     res.json(users);
@@ -71,6 +80,15 @@ const update = async (req: Request, res: Response) => {
 };
 
 const destroy = async (req: Request, res: Response) => {
+  try {
+    const headerAuth = req.headers.authorization;
+    const token = (headerAuth as string).split(' ')[1];
+    jwt.verify(token, process.env.TOKEN_SECRET as string);
+  } catch (error) {
+    res.status(401);
+    res.json(`Access denied, invalid token ${error}`);
+    return;
+  }
   try {
     const remove = await customer.delete(parseInt(req.params.id));
     res.json(remove);
