@@ -5,7 +5,7 @@ const request = supertest(app);
 export let token = '';
 
 describe('Users handlers', () => {
-  it('creates user', async (done) => {
+  it('creates user', async () => {
     const res = await request.post('/users').send({
       firstname: 'muhammed',
       lastname: 'mustafa',
@@ -14,10 +14,9 @@ describe('Users handlers', () => {
     });
     token = res.body;
     expect(res.status).toBe(200);
-    done();
   });
 
-  it('shows a list of users', async (done) => {
+  it('shows a list of users', async () => {
     const res = await request
       .get('/users')
       .set('Authorization', 'Bearer ' + token);
@@ -25,10 +24,9 @@ describe('Users handlers', () => {
     expect(res.body).toBeTruthy();
     expect(res.body.length).toEqual(1);
     expect(res.body[0].id).toEqual(1);
-    done();
   });
 
-  it('show user by id', async (done) => {
+  it('show user by id', async () => {
     const res = await request
       .get('/user/1')
       .set('Authorization', 'Bearer ' + token);
@@ -37,14 +35,12 @@ describe('Users handlers', () => {
     expect(res.body.firstname).toEqual('muhammed');
     expect(res.body.lastname).toEqual('mustafa');
     expect(res.body.email).toEqual('muhammedmustafa@udacity');
-    done();
   });
 
-  it('delete user by id', async (done) => {
+  it('delete user by id', async () => {
     const res = await request
       .delete('/deluser/1')
       .set('Authorization', 'Bearer ' + token);
     expect(res.status).toBe(200);
-    done();
   });
 });

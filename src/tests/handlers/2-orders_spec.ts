@@ -10,16 +10,15 @@ describe('Orders handlers', () => {
   //   done();
   // });
 
-  it('creates an order', async (done) => {
+  it('creates an order', async () => {
     const res = await request
       .post('/orders')
       .send({ status: 'delivered', user_id: 1 })
       .set('Authorization', 'Bearer ' + token);
     expect(res.status).toBe(200);
-    done();
   });
 
-  it('gets all orders', async (done) => {
+  it('gets all orders', async () => {
     const res = await request
       .get('/orders')
       .set('Authorization', 'Bearer ' + token);
@@ -27,10 +26,9 @@ describe('Orders handlers', () => {
     expect(res.body).toBeTruthy();
     expect(res.body.length).toEqual(1);
     expect(res.body[0].id).toEqual(1);
-    done();
   });
 
-  it('gets order by id', async (done) => {
+  it('gets order by id', async () => {
     const res = await request
       .get('/order/1')
       .set('Authorization', 'Bearer ' + token);
@@ -38,14 +36,12 @@ describe('Orders handlers', () => {
     expect(res.body).toBeTruthy();
     expect(res.body.status).toEqual('delivered');
     expect(res.body.user_id).toEqual(1);
-    done();
   });
 
-  it('deletes order by id', async (done) => {
+  it('deletes order by id', async () => {
     const res = await request
       .delete('/delorder/1')
       .set('Authorization', 'Bearer ' + token);
     expect(res.status).toBe(200);
-    done();
   });
 });
