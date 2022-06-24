@@ -6,7 +6,7 @@ export let token = '';
 
 describe('Users handlers', () => {
   it('creates user', async () => {
-    const res = await request.post('/users').send({
+    const res = await request.post('/user').send({
       firstname: 'muhammed',
       lastname: 'mustafa',
       email: 'muhammedmustafa@udacity',

@@ -43,7 +43,12 @@ const show = async (req: Request, res: Response) => {
 
 const create = async (req: Request, res: Response) => {
   try {
-    const newUser = await customer.create(req.body);
+    const newUser = await customer.create({
+      firstname: req.body.firstname,
+      lastname: req.body.lastname,
+      email: req.body.email,
+      password_digest: req.body.password_digest,
+    });
     const token = jwt.sign(
       { user: newUser },
       process.env.TOKEN_SECRET as Secret

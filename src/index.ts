@@ -21,14 +21,6 @@ app.get('/', (_req: Request, res: Response) => {
   res.send('Welcome to the second project');
 });
 
-app.use((_req: Request, res: Response) => {
-  res
-    .status(404)
-    .send(
-      'route not found, please read the documentation for available routes'
-    );
-});
-
 app.use(errorMiddleware);
 
 cyberwares_routes(app);
