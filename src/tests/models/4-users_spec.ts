@@ -34,37 +34,25 @@ describe('users Model', () => {
       email: 'muhammedmustafa@udacity',
       password_digest: '1234',
     });
-    expect(result).toEqual({
-      id: 1,
-      firstname: 'muhammed',
-      lastname: 'mustafa',
-      email: 'muhammedmustafa@udacity',
-      password_digest: '1234',
-    });
+    expect(result.id).toBeGreaterThanOrEqual(1);
+    expect(result.firstname).toEqual('muhammed');
+    expect(result.lastname).toEqual('mustafa');
+    expect(result.email).toEqual('muhammedmustafa@udacity');
   });
 
   it('index method should return a list of users', async () => {
     const result: user[] = await customer.index();
-    expect(result).toEqual([
-      {
-        id: 1,
-        firstname: 'muhammed',
-        lastname: 'mustafa',
-        email: 'muhammedmustafa@udacity',
-        password_digest: '1234',
-      },
-    ]);
+    expect(result[0].id).toBeGreaterThanOrEqual(1);
+    expect(result[0].firstname).toEqual('muhammed');
+    expect(result[0].lastname).toEqual('mustafa');
+    expect(result[0].email).toEqual('muhammedmustafa@udacity');
   });
-
   it('show method should return a specific user', async () => {
     const result: user = await customer.show(1);
-    expect(result).toEqual({
-      id: 1,
-      firstname: 'muhammed',
-      lastname: 'mustafa',
-      email: 'muhammedmustafa@udacity',
-      password_digest: '1234',
-    });
+    expect(result.id).toBeGreaterThanOrEqual(1);
+    expect(result.firstname).toEqual('muhammed');
+    expect(result.lastname).toEqual('mustafa');
+    expect(result.email).toEqual('muhammedmustafa@udacity');
   });
 
   it('delete method should remove a specific user', async () => {

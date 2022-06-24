@@ -47,31 +47,23 @@ describe('orders Model', () => {
 
   it('create method should add a new order', async () => {
     const result: order = await store.create(testOrder);
-    expect(result).toEqual({
-      id: 1,
-      user_id: 1,
-      order_status: 'active',
-    });
+    expect(result.id).toBeGreaterThanOrEqual(1);
+    expect(result.user_id).toBeGreaterThanOrEqual(1);
+    expect(result.order_status).toEqual('active');
   });
 
   it('index method should return a list of orders', async () => {
     const result: order[] = await store.index();
-    expect(result).toEqual([
-      {
-        id: 1,
-        user_id: 1,
-        order_status: 'active',
-      },
-    ]);
+    expect(result[0].id).toBeGreaterThanOrEqual(1);
+    expect(result[0].user_id).toBeGreaterThanOrEqual(1);
+    expect(result[0].order_status).toEqual('active');
   });
 
   it('show method should return a specific order', async () => {
     const result: order = await store.show(1);
-    expect(result).toEqual({
-      id: 1,
-      user_id: 1,
-      order_status: 'active',
-    });
+    expect(result.id).toBeGreaterThanOrEqual(1);
+    expect(result.user_id).toBeGreaterThanOrEqual(1);
+    expect(result.order_status).toEqual('active');
   });
 
   it('delete method should remove a specific order', async () => {
