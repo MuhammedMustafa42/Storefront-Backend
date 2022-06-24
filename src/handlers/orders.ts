@@ -91,7 +91,7 @@ const update = async (req: Request, res: Response) => {
   try {
     const updateOrder: order = {
       user_id: req.body.user_id,
-      status: req.body.status,
+      order_status: req.body.order_status,
     };
     const updatedOrder = await productOrder.update(req.body.id, updateOrder);
     res.json(updatedOrder);

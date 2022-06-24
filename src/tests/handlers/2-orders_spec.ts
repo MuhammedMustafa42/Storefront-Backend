@@ -12,7 +12,7 @@ describe('Orders handlers', () => {
 
   it('creates an order', async () => {
     const res = await request
-      .post('/orders')
+      .post('/order')
       .send({ status: 'delivered', user_id: 1 })
       .set('Authorization', 'Bearer ' + token);
     expect(res.status).toBe(200);

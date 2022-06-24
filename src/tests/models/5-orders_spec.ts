@@ -1,8 +1,26 @@
 import { order, Order } from '../../models/orders';
+import { User, user } from '../../models/users';
 
+const customer = new User();
 const store = new Order();
+const testOrder: order = {
+  user_id: 1,
+  order_status: 'active',
+};
 
 describe('orders Model', () => {
+  beforeAll(async () => {
+    const newUser: user = await customer.create({
+      firstname: 'mustafa',
+      lastname: 'mustafa',
+      email: 'mustafamustafa_test@udacity',
+      password_digest: '12345',
+    });
+    if (newUser.id) {
+      testOrder.user_id = newUser.id;
+    }
+  });
+
   it('should have an index method', () => {
     expect(store.index).toBeDefined();
   });
@@ -28,14 +46,11 @@ describe('orders Model', () => {
   });
 
   it('create method should add a new order', async () => {
-    const result: order = await store.create({
-      user_id: 1,
-      status: 'active',
-    });
+    const result: order = await store.create(testOrder);
     expect(result).toEqual({
       id: 1,
       user_id: 1,
-      status: 'active',
+      order_status: 'active',
     });
   });
 
@@ -45,7 +60,7 @@ describe('orders Model', () => {
       {
         id: 1,
         user_id: 1,
-        status: 'active',
+        order_status: 'active',
       },
     ]);
   });
@@ -55,7 +70,7 @@ describe('orders Model', () => {
     expect(result).toEqual({
       id: 1,
       user_id: 1,
-      status: 'active',
+      order_status: 'active',
     });
   });
 
