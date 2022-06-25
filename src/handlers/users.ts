@@ -128,7 +128,7 @@ const users_routes = (app: express.Application) => {
   app.get('/users', index);
   app.get('/user/:id', show);
   app.post('/user', create);
-  app.put('/updateuser', update);
+  app.put('/updateuser/:id', update);
   app.delete('/deluser/:id', destroy);
   app.post('users/authen', authenticate);
 };

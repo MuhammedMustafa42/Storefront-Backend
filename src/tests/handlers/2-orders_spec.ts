@@ -6,7 +6,6 @@ import { User } from '../../models/users';
 
 const customer = new User();
 const request = supertest(app);
-// let token = '';
 const order: order = { user_id: 1, order_status: 'delivered' };
 
 describe('Orders handlers', () => {
@@ -18,11 +17,6 @@ describe('Orders handlers', () => {
       password_digest: '2468',
     });
   });
-  // beforeAll( async () => {
-  //   await request
-  //     .post('/createorder')
-  //     .send({ user_id: 1, order_status: 'delivered' });
-  // });
 
   afterAll(async () => {
     // clean database
@@ -33,34 +27,16 @@ describe('Orders handlers', () => {
     connection.release();
   });
 
-  // it('should be able to authenticate to get token', async () => {
-  //   const res = await request
-  //     .post('/users/authen')
-  //     .send({
-  //       email: 'eslamkery@udacity',
-  //       password_digest: '2468',
-  //     })
-  //     .set('Content-type', 'application/json')
-  //     .set('Authorization', `Bearer ${token}`);
-  //   const email = res.body.email;
-  //   const userToken = res.body.token;
-  //   token = userToken;
-  //   expect(res.status).toBe(200);
-  //   expect(email).toBe('eslamkery@udacity');
-  // });
-
   it('creates an order', async () => {
     const res = await request
       .post('/order')
       .send(order)
-      // .set('Authorization', 'Bearer ' + token);
     expect(res.status).toBe(200);
   });
 
   it('gets all orders', async () => {
     const res = await request
       .get('/orders')
-      // .set('Authorization', 'Bearer ' + token);
     expect(res.status).toBe(200);
     expect(res.body).toBeTruthy();
     expect(res.body.length).toBeGreaterThanOrEqual(1);
@@ -70,7 +46,6 @@ describe('Orders handlers', () => {
   it('gets order by id', async () => {
     const res = await request
       .get('/order/1')
-      // .set('Authorization', 'Bearer ' + token);
     expect(res.status).toBe(200);
     expect(res.body).toBeTruthy();
     expect(res.body.order_status).toEqual('delivered');
@@ -80,7 +55,6 @@ describe('Orders handlers', () => {
   it('deletes order by id', async () => {
     const res = await request
       .delete('/delorder/1')
-      // .set('Authorization', 'Bearer ' + token);
     expect(res.status).toBe(200);
   });
 });
