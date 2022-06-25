@@ -1,10 +1,21 @@
 import supertest from 'supertest';
 import app from '../../index';
 import { token } from './1-users_spec';
+import client from '../../database';
 
 const request = supertest(app);
 
 describe('cyberwares handlers', () => {
+  afterAll(async () => {
+    // clean database
+    const connection = await client.connect();
+    const sql =
+      'DELETE FROM cyberwares;\nALTER SEQUENCE cyberwares_id_seq RESTART WITH 1;'
+    await connection.query(sql);
+    connection.release();
+  });
+  
+
   it('creates a cyberware', async () => {
     const res = await request
       .post('/cyberware')

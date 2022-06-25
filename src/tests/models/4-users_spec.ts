@@ -55,9 +55,9 @@ describe('users Model', () => {
     expect(result.email).toEqual('muhammedmustafa@udacity');
   });
 
-  it('delete method should remove a specific user', async () => {
-    customer.delete(1);
-    const result = await customer.index();
-    expect(result).toEqual([]);
-  });
+  // it('delete method should remove a specific user', async () => {
+  //   customer.delete(1);
+  //   const result = await customer.index();
+  //   expect(result).toEqual([]);
+  // });
 });

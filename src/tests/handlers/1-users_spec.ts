@@ -1,10 +1,21 @@
 import supertest from 'supertest';
 import app from '../../index';
+import client from '../../database';
 
 const request = supertest(app);
 export let token = '';
 
 describe('Users handlers', () => {
+
+  afterAll(async () => {
+    // clean database
+    const connection = await client.connect();
+    const sql =
+      'DELETE FROM users;\nALTER SEQUENCE users_id_seq RESTART WITH 1;'
+    await connection.query(sql);
+    connection.release();
+  });
+
   it('creates user', async () => {
     const res = await request.post('/user').send({
       firstname: 'muhammed',

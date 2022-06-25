@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
 import { User, user } from '../models/users';
-import jwt, { Secret } from 'jsonwebtoken';
+import jwt, { Secret, sign } from 'jsonwebtoken';
 
 const customer = new User();
 
@@ -102,12 +102,35 @@ const destroy = async (req: Request, res: Response) => {
   }
 };
 
+const authenticate = async (req: Request, res: Response) => {
+	const email = req.body.email;
+  const password_digest = req.body.password_digest;
+	if (email === undefined  || password_digest === undefined) {
+		res.status(400);
+		return res.send("please enter correct email & password");
+	}
+	try {
+		const u = await customer.authenticate( email, password_digest );
+		if (u === null) {
+			res.status(401);
+			res.json("Incorrect email or password");
+		} else {
+			const token = sign({ user: { email, password_digest } }, process.env.TOKEN_SECRET as string);
+			res.json(token);
+		}
+	} catch (error) {
+		res.status(401);
+		res.json({ error });
+	}
+};
+
 const users_routes = (app: express.Application) => {
   app.get('/users', index);
   app.get('/user/:id', show);
   app.post('/user', create);
   app.put('/updateuser', update);
   app.delete('/deluser/:id', destroy);
+  app.post('users/authen', authenticate);
 };
 
 export default users_routes;

@@ -23,9 +23,9 @@ app.get('/', (_req: Request, res: Response) => {
 
 app.use(errorMiddleware);
 
-cyberwares_routes(app);
-orders_routes(app);
 users_routes(app);
+orders_routes(app);
+cyberwares_routes(app);
 
 //express server start
 app.listen(port, () => {
