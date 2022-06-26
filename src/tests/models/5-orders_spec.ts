@@ -65,10 +65,4 @@ describe('orders Model', () => {
     expect(result.user_id).toBeGreaterThanOrEqual(1);
     expect(result.order_status).toEqual('active');
   });
-
-  it('delete method should remove a specific order', async () => {
-    store.delete(1);
-    const result = await store.index();
-    expect(result).toEqual([]);
-  });
 });

@@ -3,6 +3,7 @@ import app from '../../index';
 import { order } from '../../models/orders';
 import client from '../../database';
 import { User } from '../../models/users';
+import { token } from './1-users_spec';
 
 const customer = new User();
 const request = supertest(app);
@@ -31,12 +32,14 @@ describe('Orders handlers', () => {
     const res = await request
       .post('/order')
       .send(order)
+      .set('Authorization', 'Bearer ' + token);
     expect(res.status).toBe(200);
   });
 
   it('gets all orders', async () => {
     const res = await request
       .get('/orders')
+      .set('Authorization', 'Bearer ' + token);
     expect(res.status).toBe(200);
     expect(res.body).toBeTruthy();
     expect(res.body.length).toBeGreaterThanOrEqual(1);
@@ -46,15 +49,10 @@ describe('Orders handlers', () => {
   it('gets order by id', async () => {
     const res = await request
       .get('/order/1')
+      .set('Authorization', 'Bearer ' + token);
     expect(res.status).toBe(200);
     expect(res.body).toBeTruthy();
     expect(res.body.order_status).toEqual('delivered');
     expect(res.body.user_id).toBeGreaterThanOrEqual(1);
-  });
-
-  it('deletes order by id', async () => {
-    const res = await request
-      .delete('/delorder/1')
-    expect(res.status).toBe(200);
   });
 });
