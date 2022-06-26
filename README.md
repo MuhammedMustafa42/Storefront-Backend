@@ -8,6 +8,18 @@ Second Project for Udacity Nanodgree Course for backend-web development.
 2.```npm run build``` - creates the build directory.
 3.```npm run start``` - starts the server.
 
+## Database setting up
+
+- Connect to the default postgres database: sudo su - postgres
+- psql
+- Create the user: ```CREATE USER postgres WITH PASSWORD '@n@rchyG@te';```
+- Create the databases: 1- CREATE DATABASE cyberwares_store; 2- CREATE DATABASE cyberwares_store_test;
+- Connect to the databases to grant all privileges:
+1. \c cyberwares_store
+2.  GRANT ALL PRIVILEGES ON DATABASE cyberwares_store to postgres;
+3. \c cyberwares_store_test
+4. GRANT ALL PRIVILEGES ON DATABASE cyberwares_store_test to postgres;
+
 ## Migration
 
 - ```npm run migrate```

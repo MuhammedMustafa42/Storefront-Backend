@@ -32,27 +32,41 @@ These are the notes from a meeting with the frontend developer that describe wha
 ## Data Shapes
 #### Product
 
--  id
-- name
-- price
+```
+CREATE TABLE cyberwares (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(100),
+  price integer
+);
+```
 
 #### User
-
-- id
-- firstname
-- lastname
-- email
-- password_digest
+```
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  firstname VARCHAR(100) NOT NULL,
+  lastname VARCHAR(100) NOT NULL,
+  email VARCHAR(100) UNIQUE,
+  password_digest VARCHAR(100) NOT NULL
+);
+```
 
 #### Orders
-
-- id
-- user_id
-- order_status
-
+```
+CREATE TABLE orders (
+    id SERIAL PRIMARY KEY,
+    user_id integer REFERENCES users(id),
+    order_status VARCHAR(100)
+);
+```
+ 
 ### OrderedProducts
 
-- id
-- order_id
-- product_id
-- quantity
+```
+CREATE TABLE ordered_products (
+  id SERIAL PRIMARY KEY,
+  order_id integer REFERENCES orders(id),
+  product_id integer REFERENCES cyberwares(id),
+  quantity integer NOT NULL
+);
+```
